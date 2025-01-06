@@ -12,33 +12,20 @@ import {
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
 
-export const AcmeLogo = () => {
-  return (
-    <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
-      <path
-        clipRule="evenodd"
-        d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-        fill="currentColor"
-        fillRule="evenodd"
-      />
-    </svg>
-  );
-};
-
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+    { name: "Profile", href: "/profile" },
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "Activity", href: "/activity" },
+    { name: "Analytics", href: "/analytics" },
+    { name: "System", href: "/system" },
+    { name: "Deployments", href: "/deployments" },
+    { name: "My Settings", href: "/my-settings" },
+    { name: "Team Settings", href: "/team-settings" },
+    { name: "Help & Feedback", href: "/help-feedback" },
+    { name: "Log Out", href: "/logout", color: "danger" },
   ];
 
   return (
@@ -55,6 +42,7 @@ export default function App() {
         </NavbarBrand>
       </NavbarContent>
 
+      {/* Desktop Menu (hidden on small screens) */}
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
           <Link color="foreground" href="/about">
@@ -67,6 +55,8 @@ export default function App() {
           </Link>
         </NavbarItem>
       </NavbarContent>
+
+      {/* Right Side Content: Login Button (hidden on small screens) */}
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
           <Button as={Link} color="primary" href="/login" variant="flat">
@@ -74,21 +64,17 @@ export default function App() {
           </Button>
         </NavbarItem>
       </NavbarContent>
+
+      {/* Mobile Menu (Accordion-style) */}
       <NavbarMenu>
         {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+          <NavbarMenuItem key={item.name}>
             <Link
               className="w-full"
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-              }
-              href="#"
+              color={item.color || (index === 2 ? "primary" : "foreground")}
+              href={item.href}
             >
-              {item}
+              {item.name}
             </Link>
           </NavbarMenuItem>
         ))}

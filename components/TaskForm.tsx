@@ -29,6 +29,7 @@ const TaskForm: React.FC = () => {
     users: [],
   });
   const [users, setUsers] = useState<User[]>([]);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false); // Track checkbox state
 
   useEffect(() => {
     api
@@ -52,16 +53,35 @@ const TaskForm: React.FC = () => {
 
   const handleUserSelection = (e: ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
-    const selectedUsers = isChecked ? users.map((user) => user._id) : [];
 
-    setTask((prevTask) => ({
-      ...prevTask,
-      users: selectedUsers,
-    }));
+    setIsCheckboxChecked(isChecked); // Update checkbox state
+
+    // If checkbox is checked, assign all users
+    if (isChecked) {
+      const selectedUsers = users.map((user) => user._id);
+
+      setTask((prevTask) => ({
+        ...prevTask,
+        users: selectedUsers,
+      }));
+    } else {
+      setTask((prevTask) => ({
+        ...prevTask,
+        users: [], // Clear users if unchecked
+      }));
+    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Prevent form submission if checkbox is not checked
+    if (!isCheckboxChecked) {
+      alert("Please select the checkbox to assign users.");
+
+      return;
+    }
+
     api
       .post("/tasks", task)
       .then(() => alert("Task Created"))
@@ -112,8 +132,9 @@ const TaskForm: React.FC = () => {
       />
 
       <Checkbox
+        required
         color="primary"
-        isSelected={task.users.length === users.length}
+        isSelected={isCheckboxChecked}
         onChange={handleUserSelection}
       >
         Assign to All Users
