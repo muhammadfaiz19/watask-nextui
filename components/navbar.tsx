@@ -80,7 +80,11 @@ export default function App() {
             <Link
               className="w-full"
               color={
-                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
+                index === 2
+                  ? "primary"
+                  : index === menuItems.length - 1
+                    ? "danger"
+                    : "foreground"
               }
               href="#"
             >

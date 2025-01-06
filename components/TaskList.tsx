@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import { Button } from "@nextui-org/button";
@@ -40,7 +40,9 @@ const TaskList: React.FC = () => {
             <div>
               <p>{task.description}</p>
               <p>
-                {format(new Date(task.deadlineDate), "eeee, dd MMMM yyyy", { locale: id })}
+                {format(new Date(task.deadlineDate), "eeee, dd MMMM yyyy", {
+                  locale: id,
+                })}
               </p>
               <p>Pukul: {task.deadlineTime}</p>
             </div>

@@ -69,10 +69,7 @@ const TaskForm: React.FC = () => {
   };
 
   return (
-    <form
-      className="space-y-6 max-w-4xl w-full"
-      onSubmit={handleSubmit}
-    >
+    <form className="space-y-6 max-w-4xl w-full" onSubmit={handleSubmit}>
       <Input
         fullWidth
         required
