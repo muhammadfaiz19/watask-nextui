@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import React, { useEffect, useState } from "react";
@@ -68,19 +69,17 @@ const TaskList: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl w-full">
-      <h2 className="text-xl font-semibold mb-4">Task List</h2>
+    <div className="max-w-4xl w-full mt-5">
+      <h2 className="text-xl text-center font-semibold mb-4">Task List</h2>
       <Accordion>
         {tasks.map((task) => (
           <AccordionItem key={task._id} title={task.name}>
             <div>
-              <p>{task.description}</p>
-              <p>
-                {format(new Date(task.deadlineDate), "eeee, dd MMMM yyyy", {
-                  locale: id,
+              <p>Deskripsi Tugas : {task.description}</p>
+              <p> Deadline : {format(new Date(task.deadlineDate), "eeee, dd MMMM yyyy", {locale: id,
                 })}
               </p>
-              <p>Pukul: {task.deadlineTime}</p>
+              <p>Pukul: {task.deadlineTime} WIB</p>
             </div>
 
             {/* Edit and Delete buttons */}
