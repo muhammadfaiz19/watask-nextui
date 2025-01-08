@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 "use client";
 import React from "react";
 import {
@@ -49,8 +50,8 @@ export default function App() {
             About Us
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link aria-current="page" href="/settings">
+        <NavbarItem>
+          <Link color="foreground" href="/settings">
             Settings
           </Link>
         </NavbarItem>

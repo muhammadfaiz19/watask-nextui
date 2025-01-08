@@ -30,53 +30,38 @@ const TaskForm: React.FC = () => {
     users: [],
   });
   const [users, setUsers] = useState<User[]>([]);
-  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false); // Track checkbox state
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
   useEffect(() => {
     api
       .get("/users")
-      .then((response) => {
-        setUsers(response.data);
-      })
+      .then((response) => setUsers(response.data))
       .catch((err) => console.error("Failed to fetch users:", err));
   }, []);
 
   const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
 
-    setTask((prevTask) => ({
-      ...prevTask,
-      [name]: value,
-    }));
+    setTask((prevTask) => ({ ...prevTask, [name]: value }));
   };
 
   const handleUserSelection = (e: ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
 
-    setIsCheckboxChecked(isChecked); // Update checkbox state
-
-    // If checkbox is checked, assign all users
+    setIsCheckboxChecked(isChecked);
     if (isChecked) {
       const selectedUsers = users.map((user) => user._id);
 
-      setTask((prevTask) => ({
-        ...prevTask,
-        users: selectedUsers,
-      }));
+      setTask((prevTask) => ({ ...prevTask, users: selectedUsers }));
     } else {
-      setTask((prevTask) => ({
-        ...prevTask,
-        users: [], // Clear users if unchecked
-      }));
+      setTask((prevTask) => ({ ...prevTask, users: [] }));
     }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Prevent form submission if checkbox is not checked
     if (!isCheckboxChecked) {
       alert("Please select the checkbox to assign users.");
 
@@ -90,7 +75,10 @@ const TaskForm: React.FC = () => {
   };
 
   return (
-    <form className="space-y-6 max-w-4xl w-full " onSubmit={handleSubmit}>
+    <form
+      className="space-y-6 max-w-4xl w-full mx-auto shadow-md rounded-md  "
+      onSubmit={handleSubmit}
+    >
       <Input
         fullWidth
         required
@@ -101,37 +89,39 @@ const TaskForm: React.FC = () => {
         value={task.name}
         onChange={handleInputChange}
       />
-
       <Textarea
         fullWidth
         required
         label="Description"
         name="description"
-        placeholder="Description"
+        placeholder="Describe the task"
         value={task.description}
         onChange={handleInputChange}
       />
-
-      <Input
-        fullWidth
-        required
-        label="Deadline Date"
-        name="deadlineDate"
-        type="date"
-        value={task.deadlineDate}
-        onChange={handleInputChange}
-      />
-
-      <Input
-        fullWidth
-        required
-        label="Deadline Time"
-        name="deadlineTime"
-        type="time"
-        value={task.deadlineTime}
-        onChange={handleInputChange}
-      />
-
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <Input
+            fullWidth
+            required
+            label="Deadline Date"
+            name="deadlineDate"
+            type="date"
+            value={task.deadlineDate}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <Input
+            fullWidth
+            required
+            label="Deadline Time"
+            name="deadlineTime"
+            type="time"
+            value={task.deadlineTime}
+            onChange={handleInputChange}
+          />
+        </div>
+      </div>
       <Checkbox
         required
         color="primary"
@@ -140,7 +130,6 @@ const TaskForm: React.FC = () => {
       >
         Assign to All Users
       </Checkbox>
-
       <Button fullWidth color="primary" type="submit">
         Create Task
       </Button>

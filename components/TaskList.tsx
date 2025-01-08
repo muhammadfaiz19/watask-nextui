@@ -43,7 +43,7 @@ const TaskList: React.FC = () => {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
 
@@ -59,8 +59,8 @@ const TaskList: React.FC = () => {
         .then((response) => {
           setTasks(
             tasks.map((task) =>
-              task._id === updatedTask._id ? updatedTask : task,
-            ),
+              task._id === updatedTask._id ? updatedTask : task
+            )
           );
           setEditingTask(null); // Close edit form
         })
@@ -71,12 +71,16 @@ const TaskList: React.FC = () => {
   return (
     <div className="max-w-4xl w-full mt-5">
       <h2 className="text-xl text-center font-semibold mb-4">Task List</h2>
-      <Accordion>
+      <Accordion variant="shadow">
         {tasks.map((task) => (
           <AccordionItem key={task._id} title={task.name}>
             <div>
               <p>Deskripsi Tugas : {task.description}</p>
-              <p> Deadline : {format(new Date(task.deadlineDate), "eeee, dd MMMM yyyy", {locale: id,
+              <p>
+                {" "}
+                Deadline :{" "}
+                {format(new Date(task.deadlineDate), "eeee, dd MMMM yyyy", {
+                  locale: id,
                 })}
               </p>
               <p>Pukul: {task.deadlineTime} WIB</p>
@@ -94,39 +98,59 @@ const TaskList: React.FC = () => {
 
             {/* Edit Task Form */}
             {editingTask && editingTask._id === task._id && (
-              <div className="mt-4 p-4 border rounded-md bg-gray-50">
-                <h3 className="text-lg font-semibold">Edit Task</h3>
-                <Input
-                  fullWidth
-                  label="Task Name"
-                  name="name"
-                  value={updatedTask?.name || ""}
-                  onChange={handleInputChange}
-                />
-                <Textarea
-                  fullWidth
-                  label="Description"
-                  name="description"
-                  value={updatedTask?.description || ""}
-                  onChange={handleInputChange}
-                />
-                <Input
-                  fullWidth
-                  label="Deadline Date"
-                  name="deadlineDate"
-                  type="date"
-                  value={updatedTask?.deadlineDate || ""}
-                  onChange={handleInputChange}
-                />
-                <Input
-                  fullWidth
-                  label="Deadline Time"
-                  name="deadlineTime"
-                  type="time"
-                  value={updatedTask?.deadlineTime || ""}
-                  onChange={handleInputChange}
-                />
-                <div className="mt-4 flex space-x-2">
+              <div className="mt-6 p-6 rounded-md shadow-lg">
+                <h3 className="text-lg font-semibold mb-4">Edit Task</h3>
+
+                <div className="space-y-4">
+                  <div>
+                    <Input
+                      fullWidth
+                      aria-label="Task Name"
+                      label="Task Name"
+                      name="name"
+                      value={updatedTask?.name || ""}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div>
+                    <Textarea
+                      fullWidth
+                      aria-label="Description"
+                      label="Description"
+                      name="description"
+                      value={updatedTask?.description || ""}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <Input
+                        fullWidth
+                        aria-label="Deadline Date"
+                        label="Deadline Date"
+                        name="deadlineDate"
+                        type="date"
+                        value={updatedTask?.deadlineDate || ""}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        fullWidth
+                        aria-label="Deadline Time"
+                        label="Deadline Time"
+                        name="deadlineTime"
+                        type="time"
+                        value={updatedTask?.deadlineTime || ""}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex justify-end space-x-4">
                   <Button color="primary" onPress={handleUpdateTask}>
                     Update Task
                   </Button>

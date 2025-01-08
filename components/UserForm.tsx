@@ -55,7 +55,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit }) => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <Button className="w-full sm:col-span-2 md:col-span-3" type="submit">
+      <Button color="primary" type="submit">
         Add User
       </Button>
     </form>
