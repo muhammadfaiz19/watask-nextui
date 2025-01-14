@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
+/* eslint-disable react/prop-types */
 "use client";
 
 import { Button } from "@nextui-org/button";
@@ -33,18 +33,18 @@ const UserList: React.FC<UserListProps> = ({ users, onDelete }) => {
       shadow="md"
     >
       <TableHeader>
-        <TableColumn>Name</TableColumn>
-        <TableColumn>Phone Number</TableColumn>
-        <TableColumn>Email</TableColumn>
-        <TableColumn>Actions</TableColumn>
+        <TableColumn className="font-bold text-center">Name</TableColumn>
+        <TableColumn className="font-bold text-center">Phone Number</TableColumn>
+        <TableColumn className="font-bold text-center">Email</TableColumn>
+        <TableColumn className="font-bold text-center">Actions</TableColumn>
       </TableHeader>
       <TableBody>
         {users.map((user) => (
           <TableRow key={user._id}>
-            <TableCell>{user.name}</TableCell>
-            <TableCell>{user.phoneNumber}</TableCell>
-            <TableCell>{user.email}</TableCell>
-            <TableCell>
+            <TableCell className="text-center">{user.name}</TableCell>
+            <TableCell className="text-center">{user.phoneNumber}</TableCell>
+            <TableCell className="text-center">{user.email}</TableCell>
+            <TableCell className="text-center">
               <Button
                 className="text-xs"
                 color="danger"

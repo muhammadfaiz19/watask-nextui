@@ -48,8 +48,8 @@ const UsersPage: React.FC = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 px-4 md:px-10">
-      <h1 className="text-2xl font-bold text-center">Manage Users</h1>
+    <section className="flex flex-col max-w-4xl mx-auto items-center justify-center gap-4 py-8 px-4 md:px-0">
+      <h1 className="text-3xl font-bold mb-4">User Manager</h1>
       <UserForm onSubmit={addUser} />
       <UserList users={users} onDelete={deleteUser} />
     </section>

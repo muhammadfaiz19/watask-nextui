@@ -27,14 +27,15 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit }) => {
 
   return (
     <form
-      className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3"
+      className="flex flex-col space-y-6 w-full mb-2"
       onSubmit={handleSubmit}
     >
       <Input
         isClearable
         required
         className="w-full"
-        placeholder="Name"
+        label="Name"
+        placeholder="Enter Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
@@ -42,7 +43,8 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit }) => {
         isClearable
         required
         className="w-full"
-        placeholder="Phone Number"
+        label="Phone Number"
+        placeholder="Enter Phone Number"
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
       />
@@ -50,12 +52,13 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit }) => {
         isClearable
         required
         className="w-full"
-        placeholder="Email"
+        label="Email"
+        placeholder="Enter Email"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <Button color="primary" type="submit">
+      <Button className="w-full" color="primary" type="submit">
         Add User
       </Button>
     </form>
