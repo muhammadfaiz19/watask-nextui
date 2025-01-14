@@ -10,6 +10,10 @@ import { Button } from "@nextui-org/button";
 
 import api from "@/api/api";
 
+interface TaskListProps {
+  refresh: boolean;
+}
+
 interface Task {
   _id: string;
   name: string;
@@ -18,17 +22,17 @@ interface Task {
   deadlineTime: string;
 }
 
-const TaskList: React.FC = () => {
+const TaskList: React.FC<TaskListProps> = ({ refresh }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [updatedTask, setUpdatedTask] = useState<Task | null>(null);
 
   useEffect(() => {
     api
-      .get("/tasks") // Fetch tasks from the API
+      .get("/tasks")
       .then((response) => setTasks(response.data))
       .catch((err) => console.error("Failed to fetch tasks", err));
-  }, []);
+  }, [refresh]);
 
   const deleteTask = (id: string) => {
     api

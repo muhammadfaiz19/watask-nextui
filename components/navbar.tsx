@@ -16,17 +16,11 @@ import { Button } from "@nextui-org/button";
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
+    
   const menuItems = [
-    { name: "Profile", href: "/profile" },
-    { name: "Dashboard", href: "/dashboard" },
-    { name: "Activity", href: "/activity" },
-    { name: "Analytics", href: "/analytics" },
-    { name: "System", href: "/system" },
-    { name: "Deployments", href: "/deployments" },
-    { name: "My Settings", href: "/my-settings" },
-    { name: "Team Settings", href: "/team-settings" },
-    { name: "Help & Feedback", href: "/help-feedback" },
-    { name: "Log Out", href: "/logout", color: "danger" },
+    { name: "About Us", href: "/about" },
+    { name: "Settings", href: "/settings" },
+    { name: "Login", href: "/login", color: "primary" },
   ];
 
   return (

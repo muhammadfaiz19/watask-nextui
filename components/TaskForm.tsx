@@ -5,6 +5,8 @@ import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { Input, Textarea } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { Checkbox } from "@nextui-org/checkbox";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import api from "@/api/api";
 
@@ -21,7 +23,7 @@ type Task = {
   users: string[];
 };
 
-const TaskForm: React.FC = () => {
+const TaskForm: React.FC<{ onTaskAdded: () => void }> = ({ onTaskAdded }) => {
   const [task, setTask] = useState<Task>({
     name: "",
     description: "",
@@ -29,9 +31,11 @@ const TaskForm: React.FC = () => {
     deadlineTime: "",
     users: [],
   });
+
   const [users, setUsers] = useState<User[]>([]);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
+  // Fetch users ketika komponen di-mount
   useEffect(() => {
     api
       .get("/users")
@@ -39,18 +43,21 @@ const TaskForm: React.FC = () => {
       .catch((err) => console.error("Failed to fetch users:", err));
   }, []);
 
+  // Handle perubahan input
   const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
 
     setTask((prevTask) => ({ ...prevTask, [name]: value }));
   };
 
+  // Handle checkbox untuk assign semua user
   const handleUserSelection = (e: ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
 
     setIsCheckboxChecked(isChecked);
+
     if (isChecked) {
       const selectedUsers = users.map((user) => user._id);
 
@@ -60,46 +67,61 @@ const TaskForm: React.FC = () => {
     }
   };
 
+  // Handle submit form
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!isCheckboxChecked) {
-      alert("Please select the checkbox to assign users.");
+      toast.error("Please select the checkbox to assign users.");
 
       return;
     }
 
     api
       .post("/tasks", task)
-      .then(() => alert("Task Created"))
-      .catch((err) => console.error("Failed to create task:", err));
+      .then(() => {
+        toast.success("Task created successfully!");
+        setTask({
+          name: "",
+          description: "",
+          deadlineDate: "",
+          deadlineTime: "",
+          users: [],
+        });
+        setIsCheckboxChecked(false);
+        onTaskAdded(); // Panggil fungsi refresh data
+      })
+      .catch(() => {
+        toast.error("Failed to create task. Please try again.");
+      });
   };
 
   return (
-    <form
-      className="space-y-6 max-w-4xl w-full mx-auto shadow-md rounded-md  "
-      onSubmit={handleSubmit}
-    >
-      <Input
-        fullWidth
-        required
-        label="Task Name"
-        name="name"
-        placeholder="Task Name"
-        type="text"
-        value={task.name}
-        onChange={handleInputChange}
-      />
-      <Textarea
-        fullWidth
-        required
-        label="Description"
-        name="description"
-        placeholder="Describe the task"
-        value={task.description}
-        onChange={handleInputChange}
-      />
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
+    <>
+      <form
+        className="space-y-6 max-w-4xl w-full mx-auto shadow-md rounded-md"
+        onSubmit={handleSubmit}
+      >
+        <Input
+          fullWidth
+          required
+          label="Task Name"
+          name="name"
+          placeholder="Task Name"
+          type="text"
+          value={task.name}
+          onChange={handleInputChange}
+        />
+        <Textarea
+          fullWidth
+          required
+          label="Description"
+          name="description"
+          placeholder="Describe the task"
+          value={task.description}
+          onChange={handleInputChange}
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Input
             fullWidth
             required
@@ -109,8 +131,6 @@ const TaskForm: React.FC = () => {
             value={task.deadlineDate}
             onChange={handleInputChange}
           />
-        </div>
-        <div>
           <Input
             fullWidth
             required
@@ -121,19 +141,32 @@ const TaskForm: React.FC = () => {
             onChange={handleInputChange}
           />
         </div>
-      </div>
-      <Checkbox
-        required
-        color="primary"
-        isSelected={isCheckboxChecked}
-        onChange={handleUserSelection}
-      >
-        Assign to All Users
-      </Checkbox>
-      <Button fullWidth color="primary" type="submit">
-        Create Task
-      </Button>
-    </form>
+        <Checkbox
+          required
+          color="primary"
+          isSelected={isCheckboxChecked}
+          onChange={handleUserSelection}
+        >
+          Assign to All Users
+        </Checkbox>
+        <Button fullWidth color="primary" type="submit">
+          Create Task
+        </Button>
+      </form>
+      <ToastContainer
+        draggable
+        pauseOnFocusLoss
+        pauseOnHover
+        autoClose={5000}
+        closeOnClick={false}
+        hideProgressBar={false}
+        newestOnTop={false}
+        position="top-right"
+        rtl={false}
+        theme="dark"
+        transition={Bounce}
+      />
+    </>
   );
 };
 
