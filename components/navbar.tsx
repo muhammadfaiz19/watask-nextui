@@ -15,7 +15,6 @@ import { Button } from "@nextui-org/button";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
     
   const menuItems = [
     { name: "About Us", href: "/about" },
@@ -68,6 +67,7 @@ export default function App() {
               className="w-full"
               color={item.color || (index === 2 ? "primary" : "foreground")}
               href={item.href}
+
             >
               {item.name}
             </Link>

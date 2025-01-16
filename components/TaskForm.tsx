@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react/prop-types */
 "use client";
 
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
