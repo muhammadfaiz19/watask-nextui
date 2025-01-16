@@ -4,8 +4,8 @@ import React from "react";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 
-// List of Technologies
-export const technologies = [
+// List of Technologies (no export here)
+const technologies = [
   {
     title: "Next.js",
     description: "A React framework for building fast and scalable web applications.",
@@ -37,7 +37,6 @@ export const technologies = [
     link: "https://aeternity.com/",
   },
 ];
- 
 
 const AboutPage: React.FC = () => {
   return (
@@ -72,7 +71,7 @@ const AboutPage: React.FC = () => {
       </div>
 
       {/* Technology Section */}
-      <div className="min-h-screen w-full bg-gradient-to-b from-black to-gray-900 flex items-center justify-center">
+      <div className="min-h-screen w-full bg-gradient-to-b from-black to-gray-900 flex items-center justify-center px-4">
         <div className="max-w-5xl mx-aut text-white">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
             Technology Stack
@@ -80,9 +79,6 @@ const AboutPage: React.FC = () => {
           <HoverEffect items={technologies} />
         </div>
       </div>
-
-      {/* Canvas Reveal Effect */}
-      
     </>
   );
 };
