@@ -29,7 +29,7 @@ const UserList: React.FC<UserListProps> = ({ users, onDelete }) => {
     <Table
       isCompact
       aria-label="User List"
-      className="w-full overflow-x-auto"
+      className="max-w-4xl w-full mt-5"
       shadow="md"
     >
       <TableHeader>

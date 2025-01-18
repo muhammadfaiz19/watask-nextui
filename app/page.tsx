@@ -13,7 +13,7 @@ export default function Home() {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 px-4 md:px-10">
+    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 px-8 md:px-10">
       <h1 className="text-3xl font-bold mb-4">Task Manager</h1>
       <TaskForm onTaskAdded={handleTaskAdded} />
       <TaskList refresh={refresh} />

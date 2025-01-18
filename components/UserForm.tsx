@@ -27,7 +27,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit }) => {
 
   return (
     <form
-      className="flex flex-col space-y-6 w-full mb-2"
+      className="space-y-6 max-w-4xl w-full mx-auto shadow-md rounded-md"
       onSubmit={handleSubmit}
     >
       <Input

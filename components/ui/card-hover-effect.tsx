@@ -1,7 +1,8 @@
-import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+
+import { cn } from "@/lib/utils";
 
 export const HoverEffect = ({
   items,
@@ -20,31 +21,31 @@ export const HoverEffect = ({
     <div
       className={cn(
         "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 py-10",
-        className
+        className,
       )}
     >
       {items.map((item, idx) => (
         <Link
-          href={item?.link}
           key={item?.link}
           className="relative group  block p-2 h-full w-full"
+          href={item?.link}
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
-                layoutId="hoverBackground"
-                initial={{ opacity: 0 }}
                 animate={{
                   opacity: 1,
                   transition: { duration: 0.15 },
                 }}
+                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
                 exit={{
                   opacity: 0,
                   transition: { duration: 0.15, delay: 0.2 },
                 }}
+                initial={{ opacity: 0 }}
+                layoutId="hoverBackground"
               />
             )}
           </AnimatePresence>
@@ -68,8 +69,8 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-neutral-200 border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20 dark:border-neutral-800",
-        className
+        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-white/[0.2] group-hover:border-slate-700 relative z-20",
+        className,
       )}
     >
       <div className="relative z-50">
@@ -102,7 +103,7 @@ export const CardDescription = ({
     <p
       className={cn(
         "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
-        className
+        className,
       )}
     >
       {children}

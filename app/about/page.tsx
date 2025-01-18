@@ -72,7 +72,7 @@ const AboutPage: React.FC = () => {
 
       {/* Technology Section */}
       <div className="min-h-screen w-full bg-gradient-to-b from-black to-gray-900 flex items-center justify-center px-4">
-        <div className="max-w-5xl mx-aut text-white">
+        <div className="max-w-6xl mx-auto text-white">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
             Technology Stack
           </h2>

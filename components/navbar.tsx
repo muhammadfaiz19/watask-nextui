@@ -11,46 +11,55 @@ import {
   NavbarMenuItem,
 } from "@nextui-org/navbar";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    
-  const menuItems = [
-    { name: "About Us", href: "/about" },
+  const router = useRouter();
+
+  const menuItemsDesktop = [
+    { name: "About", href: "/about" },
     { name: "Settings", href: "/settings" },
+  ];
+
+  const menuItemsMobile = [
+    ...menuItemsDesktop,
     { name: "Login", href: "/login", color: "primary" },
   ];
 
+  // Close menu, navigate, and reset state
+  const handleMenuItemClick = (href: string) => {
+    setIsMenuOpen(false); // Close the menu
+    router.push(href); // Navigate to the clicked link
+  };
+
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Link color="foreground" href="/">
-            <p className="font-bold text-inherit">WaTask</p>
+          <Link href="/">
+            <p className="font-bold text-white">WaTask</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
 
-      {/* Desktop Menu (hidden on small screens) */}
+      {/* Desktop Menu */}
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="/about">
-            About Us
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/settings">
-            Settings
-          </Link>
-        </NavbarItem>
+        {menuItemsDesktop.map((item) => (
+          <NavbarItem key={item.name}>
+            <Link className="text-white" href={item.href}>
+              {item.name}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
 
-      {/* Right Side Content: Login Button (hidden on small screens) */}
+      {/* Login Button (Desktop Only) */}
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
           <Button as={Link} color="primary" href="/login" variant="flat">
@@ -59,18 +68,16 @@ export default function App() {
         </NavbarItem>
       </NavbarContent>
 
-      {/* Mobile Menu (Accordion-style) */}
+      {/* Mobile Menu */}
       <NavbarMenu>
-        {menuItems.map((item, index) => (
+        {menuItemsMobile.map((item) => (
           <NavbarMenuItem key={item.name}>
-            <Link
-              className="w-full"
-              color={item.color || (index === 2 ? "primary" : "foreground")}
-              href={item.href}
-
+            <button
+              className="w-full text-left text-white"
+              onClick={() => handleMenuItemClick(item.href)}
             >
               {item.name}
-            </Link>
+            </button>
           </NavbarMenuItem>
         ))}
       </NavbarMenu>
