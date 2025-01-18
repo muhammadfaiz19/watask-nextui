@@ -27,14 +27,14 @@ const technologies = [
     link: "https://www.mongodb.com/",
   },
   {
-    title: "Next UI",
+    title: "Hero UI",
     description: "A UI library that provides beautiful, customizable components for Next.js apps.",
-    link: "https://nextui.org/",
+    link: "https://www.heroui.com/",
   },
   {
-    title: "Aeternity UI",
+    title: "Aceternity UI",
     description: "A customizable design system built for scalable and modern applications.",
-    link: "https://aeternity.com/",
+    link: "https://ui.aceternity.com/",
   },
 ];
 
