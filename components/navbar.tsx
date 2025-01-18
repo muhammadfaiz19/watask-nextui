@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
+import { FaInfoCircle, FaCog, FaSignInAlt, FaHome } from "react-icons/fa"; 
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -24,8 +25,10 @@ export default function App() {
   ];
 
   const menuItemsMobile = [
-    ...menuItemsDesktop,
-    { name: "Login", href: "/login", color: "primary" },
+    { name: "Home", href: "/", icon: <FaHome /> },
+    { name: "About", href: "/about", icon: <FaInfoCircle /> },
+    { name: "Settings", href: "/settings", icon: <FaCog /> },
+    { name: "Login", href: "/login", icon: <FaSignInAlt />, color: "primary" },
   ];
 
   // Close menu, navigate, and reset state
@@ -69,13 +72,14 @@ export default function App() {
       </NavbarContent>
 
       {/* Mobile Menu */}
-      <NavbarMenu>
+      <NavbarMenu className="bg-transparent text-white">
         {menuItemsMobile.map((item) => (
           <NavbarMenuItem key={item.name}>
             <button
-              className="w-full text-left text-white"
+              className="w-full flex items-center gap-3 text-left p-2 rounded-lg hover:bg-gray-700 transition"
               onClick={() => handleMenuItemClick(item.href)}
             >
+              {item.icon} {/* Display icon */}
               {item.name}
             </button>
           </NavbarMenuItem>
